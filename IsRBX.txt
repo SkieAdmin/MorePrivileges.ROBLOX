@@ -1,0 +1,31 @@
+using Newtonsoft.Json.Linq;
+
+namespace ROBLOX
+{
+    public class Check
+    {
+    
+     public static string version { get; set; }
+    
+        public static void GetUpdate()
+        {
+            using (var wb = new System.Net.WebClient())
+            {
+                var jsonData = wb.DownloadString("https://clientsettingscdn.roblox.com/v2/client-version/WindowsPlayer");
+                Newtonsoft.Json.Linq.JObject obj = Newtonsoft.Json.Linq.JObject.Parse(jsonData);
+
+                version = obj["clientVersionUpload"].Value<string>();
+
+                if (version != "version-d25d44458f014535")
+                {
+                    System.Windows.Forms.MessageBox.Show("Exploit Patched!");
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("Exploit Updated!");
+                }
+
+            }
+        }
+    }
+}
